@@ -1,4 +1,4 @@
-
+-- just for windows function ----
 --rank, Dense_rank, ROW_NUMBER, percent_rank,----
 
 select salary , jobtitle,
