@@ -17,3 +17,22 @@ select salary , jobtitle,
  lead(salary) over (order by salary) as lead_values,
  lag(salary) over (order by salary ) as lag_values
  from employees;
+
+
+---fetch the first 2 emp how has join first---
+select * from(
+		select e.*,
+		row_number() over(partition by jobtitle) as number_salary
+		from employees e) x
+where x.number_salary <2;
+
+----fined the top 3 emp how has getting max salary each department-----
+select * from(
+		select e.*,
+		rank() over(partition by jobtitle order by salary) as number_salary
+		from employees e) x
+where x.number_salary <4;
+
+select e.*,
+rank() over(partition by jobtitle order by salary) as number_salary
+from employees e ;
