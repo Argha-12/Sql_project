@@ -1,7 +1,10 @@
+---THIS IS FOR TABLE COPE ONLY NOT FOR DATA AND COLUMN-----
 
 	create table employees_new
 	select * from employees
 	where 1=0;
+
+---THIS IS FOR COLUMN ONLY---
 
 	insert into employees_new (EmployeeID , FirstName , LastName , Salary , Jobtitle)
 	select EmployeeID , FirstName , LastName , Salary , Jobtitle
