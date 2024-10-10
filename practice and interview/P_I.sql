@@ -120,3 +120,4 @@ select *  from
 		(select * ,row_number() over (order by EmpID ) as row_num
         from employee) as argha
 where argha.row_num % 2 = 0
+#############################################################
