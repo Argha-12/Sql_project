@@ -140,3 +140,28 @@ select Empname from employee
 -- • starting with vowels (a, e, i, o, or u), without duplicates
 -- • ending with vowels (a, e, i, o, or u), without duplicates
 -- • starting & ending with vowels (a, e, i, o, or u), without duplicates
+
+SELECT DISTINCT Empname 
+from employee
+where lower(left(Empname, 1)) in ('a', 'e', 'i', 'o', 'u')
+order by Empname
+##################################################################
+
+-- : Find Nth highest salary from employee table with and without using the
+-- TOP/LIMIT keywords.
+select *
+from(
+	select 
+		EmpID,
+		salary,
+		row_number() over (order by salary desc) as hightst_salary
+	from employee 
+) as e
+where e.hightst_salary = 9
+
+--------or-------
+SELECT Salary FROM Employee E1
+WHERE 9 = (
+SELECT COUNT( DISTINCT ( E2.Salary ) )
+FROM Employee E2
+WHERE E2.Salary >= E1.Salary );
