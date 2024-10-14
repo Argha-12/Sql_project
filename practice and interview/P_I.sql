@@ -121,4 +121,22 @@ select *  from
         from employee) as argha
 where argha.row_num % 2 = 0
 #############################################################
-#####################################################
+-- : Write a query to find all the Employee names whose name:
+-- • Begin with ‘A’
+-- • Contains ‘A’ alphabet at second place
+-- • Contains ‘Y’ alphabet at second last place
+-- • Ends with ‘L’ and contains 4 alphabets 
+-- • Begins with ‘V’ and ends with ‘A’
+
+select Empname from employee
+						where Empname like 'A%'
+						where Empname like '_A%'
+						where Empname like '_Y%'
+						where Empname like '___L'
+						where Empname like 'V%A'
+###############################################################						
+
+--  Write a query to find the list of Employee names which is:
+-- • starting with vowels (a, e, i, o, or u), without duplicates
+-- • ending with vowels (a, e, i, o, or u), without duplicates
+-- • starting & ending with vowels (a, e, i, o, or u), without duplicates
