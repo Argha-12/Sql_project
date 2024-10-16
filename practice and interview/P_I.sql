@@ -165,3 +165,24 @@ WHERE 9 = (
 SELECT COUNT( DISTINCT ( E2.Salary ) )
 FROM Employee E2
 WHERE E2.Salary >= E1.Salary );
+######################################################################
+-- Write a query to find and remove duplicate records from a table.
+
+select City , count(*) as duplicate_count
+from Employee
+group by City
+having count(*) > 1
+
+------------------or--------------------
+
+with rana as (
+	select City ,
+    row_number() over (PARTITION By City ) as duplicate_count
+    from Employee
+)
+select City , duplicate_count
+from rana
+where duplicate_count > 2
+
+################################################################
+--  Query to retrieve the list of employees working in same project.
