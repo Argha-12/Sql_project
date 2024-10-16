@@ -186,3 +186,17 @@ where duplicate_count > 2
 
 ################################################################
 --  Query to retrieve the list of employees working in same project.
+
+
+
+##########################################################################
+-- Show the employee with the highest salary for each project
+
+select max(salary) as dep_salary , Department 
+from Employee e
+join emp_detail ed
+on e.EmpID = ed.EmpID
+group by Department
+---------------or------------
+
+one more solution is there i need to wright it
