@@ -26,7 +26,7 @@ where RANK_SALARY = 2;
 #########################################################
 
 
--- -How to search Filter records from the two Tables with out where statement
+01 --  -How to search Filter records from the two Tables with out where statement
 
 select e.EmployeeID , e.FirstName  , e.salary , D.DepartmentName
 from Employees e
@@ -34,7 +34,7 @@ join  Department D on e.EmployeeID = D.DepartmentID and D.DepartmentName in ('HR
 
 ################################################################################################
 
----THIS IS FOR TABLE COPE ONLY NOT FOR DATA AND COLUMN-----
+02 ---THIS IS FOR TABLE COPE ONLY NOT FOR DATA AND COLUMN-----
 
 	create table employees_new
 	select * from employees
@@ -71,7 +71,7 @@ join  Department D on e.EmployeeID = D.DepartmentID and D.DepartmentName in ('HR
 
     ####################################################################################
 
-    -- Find the list of employees whose salary ranges between 2L to 3L.
+03 -- Find the list of employees whose salary ranges between 2L to 3L.
 
 SELECT EmpName, Salary FROM Employee
 WHERE Salary > 200000 AND Salary < 300000
@@ -81,18 +81,18 @@ WHERE Salary BETWEEN 200000 AND 300000
 
 ####################################################################################
 
--- Write a query to retrieve the list of employees from the same city
+04 -- Write a query to retrieve the list of employees from the same city
 SELECT E1.EmpID, E1.EmpName, E1.City
 FROM Employee E1, Employee E2
 WHERE E1.City = E2.City AND E1.EmpID != E2.EmpID
 
 #################################################################################
--- Query to find the cumulative sum of employee’s salary.
+05 -- Query to find the cumulative sum of employee’s salary.
 SELECT EmpID, Salary, SUM(Salary) OVER (ORDER BY EmpID) AS CumulativeSum
 FROM Employee
 
 ##############################################################################
--- Write a query to fetch 50% records from the Employee table.
+06 -- Write a query to fetch 50% records from the Employee table.
 select * from employee
 where EmpID <= (select count(EmpID)/2 from employee)
 -----or-------
@@ -106,7 +106,7 @@ FROM rana
 WHERE rownumber <= (SELECT FLOOR(COUNT(EmpID) / 2) FROM employee);
 
 ############################################################################################
- -- Write a query to fetch even and odd rows from Employee table.
+07 -- Write a query to fetch even and odd rows from Employee table.
 WITH argha as (
 	select * , 
 			row_number() over (order by EmpID ) as row_num
@@ -121,7 +121,7 @@ select *  from
         from employee) as argha
 where argha.row_num % 2 = 0
 #############################################################
--- : Write a query to find all the Employee names whose name:
+08 -- : Write a query to find all the Employee names whose name:
 -- • Begin with ‘A’
 -- • Contains ‘A’ alphabet at second place
 -- • Contains ‘Y’ alphabet at second last place
@@ -136,7 +136,7 @@ select Empname from employee
 						where Empname like 'V%A'
 ###############################################################						
 
---  Write a query to find the list of Employee names which is:
+09 --  Write a query to find the list of Employee names which is:
 -- • starting with vowels (a, e, i, o, or u), without duplicates
 -- • ending with vowels (a, e, i, o, or u), without duplicates
 -- • starting & ending with vowels (a, e, i, o, or u), without duplicates
@@ -147,7 +147,7 @@ where lower(left(Empname, 1)) in ('a', 'e', 'i', 'o', 'u')
 order by Empname
 ##################################################################
 
--- : Find Nth highest salary from employee table with and without using the
+10 -- : Find Nth highest salary from employee table with and without using the
 -- TOP/LIMIT keywords.
 select *
 from(
@@ -166,7 +166,7 @@ SELECT COUNT( DISTINCT ( E2.Salary ) )
 FROM Employee E2
 WHERE E2.Salary >= E1.Salary );
 ######################################################################
--- Write a query to find and remove duplicate records from a table.
+11 -- Write a query to find and remove duplicate records from a table.
 
 select City , count(*) as duplicate_count
 from Employee
@@ -185,12 +185,12 @@ from rana
 where duplicate_count > 2
 
 ################################################################
---  Query to retrieve the list of employees working in same project.
+12 --  Query to retrieve the list of employees working in same project.
 
 
 
 ##########################################################################
--- Show the employee with the highest salary for each project
+13 -- Show the employee with the highest salary for each project
 
 select max(salary) as dep_salary , Department 
 from Employee e
@@ -206,7 +206,7 @@ one more solution is there i need to wright it
 
 
 ###########################################################################
--- : Query to find the total count of employees joined each year
+14 -- : Query to find the total count of employees joined each year
 select 
 	count(EmpID) as emp_count ,
 	extract( year from HireDate) as Hireyear
@@ -217,7 +217,7 @@ order by
 	Hireyear
 
 ###########################################################################
---  Create 3 groups based on salary col, salary less than 1L is low, between 1 -
+15 --  Create 3 groups based on salary col, salary less than 1L is low, between 1 -
 -- 2L is medium and above 2L is High
 select 
 	salary,
