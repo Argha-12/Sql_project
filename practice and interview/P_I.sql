@@ -200,3 +200,31 @@ group by Department
 ---------------or------------
 
 one more solution is there i need to wright it
+
+
+
+
+
+###########################################################################
+-- : Query to find the total count of employees joined each year
+select 
+	count(EmpID) as emp_count ,
+	extract( year from HireDate) as Hireyear
+from emp_detail
+group by 
+	extract(year from HireDate)
+order by 
+	Hireyear
+
+###########################################################################
+--  Create 3 groups based on salary col, salary less than 1L is low, between 1 -
+-- 2L is medium and above 2L is High
+select 
+	salary,
+    Gender,
+    case 
+		when salary <= 50000 then 'salary less'
+		when salary between 50000 and 54000 then 'salary medium'
+		when salary <= 65000 then 'salary high'
+	end as salary_cat
+from employee
