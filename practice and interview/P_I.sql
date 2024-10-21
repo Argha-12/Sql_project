@@ -199,10 +199,25 @@ on e.EmpID = ed.EmpID
 group by Department
 ---------------or------------
 
-one more solution is there i need to wright it
-
-
-
+WITH argha AS (
+    SELECT 
+        e.EmpID,
+        ed.Department,
+        e.Salary,
+        ROW_NUMBER() OVER (PARTITION BY ed.Department ORDER BY e.Salary) AS salary_rank
+    FROM 
+        employee e
+    INNER JOIN 
+        emp_detail ed ON e.EmpID = ed.EmpID
+)
+SELECT 
+    EmpID,
+    Department,
+    Salary
+FROM 
+    argha
+WHERE 
+    salary_rank = 1;
 
 
 ###########################################################################
