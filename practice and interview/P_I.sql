@@ -243,3 +243,17 @@ select
 		when salary <= 65000 then 'salary high'
 	end as salary_cat
 from employee
+############################################################################
+16--wright the query difference between hights salary 'sales' and ' IT' depertment
+
+WITH cte AS (
+    SELECT em.Department,
+           MAX(e.salary) AS max_salary
+    FROM employee e
+    JOIN emp_detail em ON e.EmpID = em.EmpID
+    GROUP BY em.Department
+)
+SELECT 
+    max(CASE WHEN Department = 'Sales' THEN max_salary ELSE 0 END) - 
+    max(CASE WHEN Department = 'IT' THEN max_salary ELSE 0 END) AS salary_difference
+FROM cte;
