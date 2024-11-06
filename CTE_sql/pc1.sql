@@ -12,3 +12,4 @@ where E.salary > average_salary.avg_sal;
 select emp_name , salary
 from emp_new 
 where salary > 	(select avg(salary) from emp_new);
+-- added line
