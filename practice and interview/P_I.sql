@@ -257,3 +257,28 @@ SELECT
     max(CASE WHEN Department = 'Sales' THEN max_salary ELSE 0 END) - 
     max(CASE WHEN Department = 'IT' THEN max_salary ELSE 0 END) AS salary_difference
 FROM cte;
+##############################################################################
+--useing by nth_value
+--wright a query to display the second(2) most expensive product under each category
+select * ,
+first_value(product_name) over w as first_values,
+last_value(product_name) over (partition by product_category order by price
+			range between unbounded preceding and unbounded following) as last_values,
+nth_value(product_name, 2) over w as second_most
+from product
+window w as (partition by product_category order by price)
+
+############################################################################
+--usening by ntile function 
+--segregate all the expensive phone and mid renge , cheaper phone
+select product_name,
+case when x.segregate = 1 then ' expensive phone' 
+	 when x.segregate = 2 then ' mid renge' 
+     when x.segregate = 3 then ' cheaper phone' 
+     else 0
+     end as segregate_type
+from (
+	select * ,
+	ntile (3) over ( order by price desc) as segregate
+	from product
+) x ;
