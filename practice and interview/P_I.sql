@@ -282,3 +282,23 @@ from (
 	ntile (3) over ( order by price desc) as segregate
 	from product
 ) x ;
+
+######################################################################################
+-- what is the main use case of recursive sql
+
+-- This query starts with a base condition (the manager) and iteratively finds all employees who report up the hierarchy.
+WITH RECURSIVE EmployeeHierarchy AS (
+    SELECT employee_id, name, reports_to
+    FROM Employees
+    WHERE employee_id = 1 -- Start with a specific manager
+
+    UNION ALL
+
+    SELECT e.employee_id, e.name, e.reports_to
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh
+    ON e.reports_to = eh.employee_id
+)
+SELECT * 
+FROM EmployeeHierarchy;
+
