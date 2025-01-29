@@ -301,4 +301,10 @@ WITH RECURSIVE EmployeeHierarchy AS (
 )
 SELECT * 
 FROM EmployeeHierarchy;
-
+####################################################################
+--Pivot rows to columns , eg : year wise sales for each category in separate columns etc
+select category,
+	sum(case when year(sale_date) = '2022' then sales_amount else 0 end) as data_22,
+    sum(case when year(sale_date) = '2023' then sales_amount else 0 end) as data_23
+from sales2
+group by category
