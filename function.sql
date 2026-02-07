@@ -1,7 +1,6 @@
 use sample 
 
 select * from products
-
 truncate table products
 
 ---Scalar function return only one row 
@@ -11,11 +10,9 @@ as
 begin
 	return @price * 0.5
 end;
-
 SELECT *, dbo.price_check(price)
 from products
-
-
+	
 ----Table-Valued function return only multiple values 
 
 create function multiple_values(@price int)
@@ -25,7 +22,6 @@ return(
 	select * from products
 	where price > @price
 )
-
 select * from multiple_values(100)
 
 
@@ -37,9 +33,7 @@ begin
 	set @result = @values1 + @values2
 	return @result
 end
-
 select dbo.add_two_values(10,15)
-
 SELECT product_id, dbo.add_two_values(price , price)
 from products
 
@@ -78,7 +72,6 @@ begin
 end 
 
 select dbo.local_values(10,15)
-
 select * from employees
 
 -----  Table-Valued User-Defined Function
@@ -87,7 +80,6 @@ create function table_valued (@logic varchar(25))
 returns table
 as 
  return select * from  employees where Department = @logic
-
 
  select * from table_valued ('IT')
  
