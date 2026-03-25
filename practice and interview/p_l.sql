@@ -100,3 +100,109 @@ where e.salary >
       );
 
 
+------------- find the emp how have order 2 or more then two?
+	select * from orders
+select * from customers
+
+select customer_id
+from (
+		select * ,
+			row_number () over (partition by customer_id order by order_id) as rowss
+		from orders
+	) t
+where rowss >= 2
+
+select customer_id 
+from orders
+group by customer_id
+having count(customer_id) >=2
+
+select customer_id 
+from orders
+group by customer_id
+having count(*) >=2
+
+SELECT customer_id 
+FROM orders
+GROUP BY customer_id;
+
+
+SELECT order_date, COUNT(*) AS total_orders
+FROM orders
+GROUP BY order_date;
+
+--- find the user how consecutive 3 login days
+select * from user_logins
+
+with cte as (
+	select * ,
+		row_number() over (partition by user_id order by login_date ) as rn
+	from user_logins
+),
+grp as (
+	select *,
+	dateadd(day, -rn , login_date) as grp_date
+	from cte
+)
+select  user_id
+from grp
+group by user_id, grp_date
+having count(*) >= 3
+
+-----cutomers above their avg order value
+
+select * from orders
+
+SELECT *
+FROM orders o
+WHERE amount > (
+        SELECT AVG(amount)
+        FROM orders
+        WHERE customer_id = o.customer_id ( the resion using this line group the values)
+);
+--------------------------------------------------------------------
+WITH cte AS (
+    SELECT *,
+           AVG(amount) OVER (PARTITION BY customer_id) AS avg_amount
+    FROM orders
+)
+SELECT *
+FROM cte
+WHERE amount > avg_amount;
+
+-------find the customer who never orders
+use test
+select * from orders
+select * from customers
+
+
+select c.customer_id
+from customers c
+left join orders o
+on c.customer_id = o.customer_id 
+where o.customer_id is null
+
+----top product per category
+use test
+select * from products
+select * from sales
+
+with cte as (
+	select product_name ,
+		amount = price * quantity
+	from products p
+	join sales s
+	on p .product_id = s.product_id
+),
+
+ranks as (
+	select * ,
+	 row_number () over (partition by product_name order by amount) as rn
+	from cte
+)
+
+select * 
+from ranks
+where rn = 1
+
+
